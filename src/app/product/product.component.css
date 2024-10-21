@@ -1,0 +1,17 @@
+.navbarcontainer{
+    background-color: rgb(28, 181, 252);
+  
+}
+.navbar-nav .nav-item{
+    display: flex;
+    align-items: center;
+}
+.icon-wrapper{
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    margin-left: 10px;
+}
+.pi{
+    font-size: inherit;
+}

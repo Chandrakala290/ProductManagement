@@ -1,0 +1,39 @@
+.navbarcontainer{
+    background-color: rgb(28, 181, 252);
+  
+}
+.carousel-item img{
+    height: 600px;
+    width: 100%;
+    object-fit:fill;
+}
+.footer {
+    background-color: #343a40; /* Dark background */
+    color: white; /* White text color */
+    padding: 20px 0; /* Padding for top and bottom */
+  }
+  
+  .footer .container {
+    max-width: 1200px; /* Center the content */
+    margin: 0 auto; /* Center align */
+  }
+  
+  .footer .row {
+    display: flex; /* Flexbox layout */
+    justify-content: space-between; /* Center items */
+    align-items: center; /* Center items vertically */
+  }
+  
+  .footer .col-md-4 {
+    display: flex;
+    align-items:flex-start;
+    text-align: center; /* Center text */
+    margin: 10px;
+    max-width: 200px; /* Space between columns */
+  }
+  
+  .footer-image {
+    width: 90px; /* Set a fixed width for images */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 10px; /* Space between image and text */
+  }

@@ -1,0 +1,75 @@
+<nav class="navbar navbar-expand-lg navbarcontainer">
+  <div class="container-fluid ">
+      <a class="navbar-brand" >Product Management</a>
+      
+      <div class="collapse navbar-collapse navbaritems " id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                  <a class="nav-link active text-white fs-3"  href="/home">Home</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link text-white  fs-3" aria-current="page" href="/products">Products</a>
+              </li>
+              <li class="nav-item me-3">
+                  <span class="icon-wrapper " (click)="navigateToCart()" style="cursor: pointer;">
+                  <i class="pi pi-shopping-cart" style="color:white;   font-weight: 2rem;"></i>
+                  </span>
+              </li>
+              <li class="nav-item">
+                  <button class="btn btn-danger fs-3"    (click)="logout()" type="button">Logout</button>
+              </li>
+          </ul>
+      </div>
+  </div>
+</nav>
+
+<br>
+<br>
+<br>
+<div class="carttable" style="max-width:1200px; margin:auto">
+  <p-toast/>
+  <button pButton label="Clear" (click)="clearCart()" styleClass="p-button-danger"></button>
+  <br>
+  <br>
+  <p-table #table [value]="cartItems" >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>S.NO</th>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total Price</th>
+        <th>Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-i="rowIndex">
+      <tr>
+        <td>{{i+1}}</td>
+        <td>{{item.name}}</td>
+        <td>
+          <span (click)="updateQuantity(item,-1)">
+            <i class="pi pi-minus-circle" style="color: rgb(8, 245, 99); cursor: pointer;"></i>
+          </span>
+          <span class="quantity-value">{{item.quantity ||1}}</span>
+          <span (click)="updateQuantity(item,1)">
+            <i class="pi pi-plus-circle" style="color: rgb(8, 245, 99); cursor: pointer;"></i>
+          </span>       </td>
+        <td>{{item.price.toFixed(2) |currency}}</td>
+      <td>{{ (item.price * (item.quantity || 1)).toFixed(2) | currency }}</td>
+        <td>
+       <p-toast/>
+          <p-button icon="pi pi-trash" styleClass="p-button-secondary" (click)="removeFromCart(item)" ></p-button>
+        </td>
+      </tr>
+
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <tr>
+        <td colspan="4" style="text-align: right; font-weight: bold;">Grand Total:</td>
+        <td>{{getTotalPrice()|currency}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+  

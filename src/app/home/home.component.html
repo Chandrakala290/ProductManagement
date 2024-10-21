@@ -1,0 +1,84 @@
+<nav class="navbar navbar-expand-lg navbarcontainer">
+    <div class="container-fluid ">
+        <a class="navbar-brand" >Product Management</a>
+        
+        <div class="collapse navbar-collapse navbaritems " id="navbarNav">
+            
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active text-white fw-bold  fs-3" aria-current="page" href="/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white fs-3" href="/products">Products</a>
+                </li>
+                    <li class="nav-item">
+                        <button class="btn btn-danger fs-3"  (click)="logout()"  type="submit" >Logout</button>
+                    </li>
+                
+            </ul>
+        
+        </div>
+    </div>
+</nav>
+<br>
+<div id="carouselExampleCaptions" class="carousel slide">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="/images/laptop.jpg" class="d-block w-100 " alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Laptop</h5>
+          <p>A high performane laptops.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="\images\phone.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Phone</h5> 
+          <p>A feature-packed smartphone with excellent camera.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="/images/monitor.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Third slide label</h5>
+          <p>A budget 24-inch FHD monitor with a sleek design.</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <br>
+  <footer class="footer">
+    <div class="container">
+      <div class="row text-container">
+        <div class="col-md-4">
+          <img src="/images/vivo.jpg" alt="phone" class="footer-image">
+          
+          <p>Vivo phone have a 6000mh battery</p>
+        </div>
+        <div class="col-md-4">
+          <img src="/images/monitor.jpg" alt="phone" class="footer-image" >
+          
+          <p> monitor with  modern design</p>
+        </div>
+        <div class="col-md-4">
+          <img src="/images/hp.jpg" alt="phone" class="footer-image">
+         
+          <p>HP laptop with high bayyery performance.</p>
+        </div>
+      </div>
+    </div>
+  </footer>

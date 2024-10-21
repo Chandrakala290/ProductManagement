@@ -1,0 +1,31 @@
+<html>
+  <body>
+    <div class="login-container">
+    <form  [formGroup]="loginForm" (ngSubmit)="login()">
+      <h2>Login</h2>
+        <div>
+          <input type="email" formControlName ="email" id="email"   name ="email"placeholder="Email" autocomplete="email" (focus)="clearError()">
+          <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            <small *ngIf ="loginForm.get('email')?.errors?.['required']" style="color: red;">Email is required</small>
+            <small *ngIf="loginForm.get('email')?.errors?.['email']" style="color: red;">Invalid email format</small>
+
+          </div>
+        </div>
+          <br>
+        <div>
+          <input type="password" formControlName="password" id="password"  name="password" placeholder="Password" autocomplete="current-password"(focus)="clearError()">
+          <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            <small *ngIf="loginForm.get('password')?.errors?.['required']" style="color: red;">Password is required</small>
+          </div>
+        </div>
+        <br>
+        <div *ngIf="errorMessage" class="error">{{errorMessage}} </div>
+        <div class="button">
+          
+          <button type="submit" [disabled]="loginForm.invalid">Login</button>
+       
+      </div>
+      </form>
+    </div>
+</body>
+</html>

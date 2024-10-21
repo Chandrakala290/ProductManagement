@@ -1,0 +1,163 @@
+<nav class="navbar navbar-expand-lg navbarcontainer">
+    <div class="container-fluid ">
+        <a class="navbar-brand" >Product Management</a>
+        
+        <div class="collapse navbar-collapse navbaritems " id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active text-white fs-3"  href="/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white fw-bold fs-3" aria-current="page" href="/products">Products</a>
+                </li>
+                <li class="nav-item me-3">
+                    <p-toast/>
+                    <span class="icon-wrapper" (click)="navigateToCart()" style="cursor: pointer;">
+                    <i class="pi pi-shopping-cart" style="color:white;   font-weight: 2rem;"></i>
+                     <sup class="cart-count" style="color: red;">{{cartItemCount$|async}}</sup></span>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-danger fs-3"    (click)="logout()" type="button">Logout</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<br><br><br><br>
+
+<div class="producttable" style="max-width: 1200px; margin: auto;">
+    <button pButton label="Add" icon="pi pi-plus" (click)="openAddProductModal()" styleClass="p-button-primary"></button>
+    <br><br>
+    
+    <p-table #table  [value]="products" [paginator]="true" [rows]="3" [globalFilterFields]="['name','price']">
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <p-iconField iconPosition="left" class="ml-auto">
+                    <p-inputIcon>
+                        <i class="pi pi-search"></i>
+                    </p-inputIcon>
+                    <input 
+                        pInputText 
+                        type="text" 
+                        (input)="filterProducts($event,table)" 
+                        placeholder="Search keyword" />
+                </p-iconField>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>S.NO</th>
+                <th>Name
+                    <p-columnFilter type="text" field="name" placeholder="search by name" ariaLabel="Filter Name"/>
+                </th>
+                <th>Image</th>
+                <th>Price
+                    <p-columnFilter type="text" field="price" placeholder="search by price" ariaLabel="Filter Price"/>
+                </th>
+                <th>Product Description</th>
+                <th>Action</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product let-i="rowIndex">
+            <tr>
+                <td>{{i + 1}}</td>
+                <td>{{product.name}}</td>
+                <td>
+                    <img [src]="product.image" width="50" height="50" alt="{{ product.name }}">
+                </td>
+                <td>{{ product.price |currency}}</td>
+                <td>{{ product.productdescription }}</td>
+               
+                <td >
+                    <div style=" display:flex; gap:15px">
+                    <p-button  icon="pi pi-pencil"  styleClass=" p-button-secondary" (click)="openEditModal(product)" ></p-button>
+                  
+                    <p-button  icon="pi pi-trash" styleClass="p-button-secondary"  (click)="deleteProduct(product.id)" ></p-button>
+
+                    <p-button icon="pi pi-eye" styleClass="p-button-secondary"  (click)="openViewModal(product)"></p-button>
+                   
+                    <p-button icon="pi pi-shopping-cart" styleClass="p-button-secondary" (click)="addToCart(product)"></p-button>
+                </div></td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<!-- Add Product Modal -->
+<p-dialog header="Add New Product" [(visible)]="displayAddModal" [modal]="true" [responsive]="true">
+    <div class="modal-body">
+        <form [formGroup]="newProductForm" (ngSubmit)="addProduct()">
+            <div class="mb-3">
+                <label for="productName" class="form-label">Product Name</label>
+                <input type="text" id="productName" formControlName="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="productImage" class="form-label">Product Image </label>
+                <input type="file" (change)="onImageSelect($event,'add')" class="form-control" required>
+                <img *ngIf="imagePreviewAdd" [src]="imagePreviewAdd" width="100" height="100" alt="Image Preiview" class="mt-2">
+            </div>
+            <div class="mb-3">
+                <label for="productPrice" class="form-label">Product Price</label>
+                <input type="number" id="productPrice" formControlName="price" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="productDescription" class="form-label">Product Description</label>
+                <textarea id="productDescription" formControlName="productdescription" class="form-control" required></textarea>
+            </div>
+            <button type="submit" pButton label="Add Product" styleClass="p-button-primary"></button>
+        </form>
+    </div>
+</p-dialog>
+
+<!-- Edit Product Modal -->
+<p-dialog header="Edit Product" [(visible)]="displayEditModal" [modal]="true" [responsive]="true">
+    <div class="modal-body">
+        <form [formGroup]="editProductForm" (ngSubmit)="updateProduct()">
+            <div class="mb-3">
+                <label for="editProductName" class="form-label">Product Name</label>
+                <input type="text" id="editProductName" formControlName="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="editProductImage" class="form-label">Product Image </label>
+                <input type="file" (change)="onImageSelect($event, 'edit')" class="form-control" required>
+                <div *ngIf="imagePreviewEdit">
+                    <img [src]="imagePreviewEdit" width="100" height="100" alt="Image Preview" class="mt-2">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="editProductPrice" class="form-label">Product Price</label>
+                <input type="number" id="editProductPrice" formControlName="price" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="editProductDescription" class="form-label">Product Description</label>
+                <textarea id="editProductDescription" formControlName="productdescription" class="form-control" required></textarea>
+            </div>
+            <button type="submit" pButton label="Update Product" styleClass="p-button-primary"></button>
+        </form>
+    </div>
+</p-dialog>
+
+
+<!-- view modal-->
+ <p-dialog [(visible)]="displayViewModal" header="View Product" [modal]="true" [closable]="true" [style]="{width: '400px'}" (onHide)="viewedProduct = null">
+    <div *ngIf="viewedProduct">
+    
+        <div class="mb-3">
+            
+            <img [src]="viewedProduct.image" alt="Product Image" class="img-fluid" width="300px" height="300px"/>
+        </div>    <div class="mb-3  d-flex justify-content-start align-items-center">
+       
+            <p style="font-size: 20px; font-weight: bold;">{{viewedProduct.name}} <p>
+        
+    
+        <p>-{{viewedProduct.price |currency}}</p>
+    </div>
+    <div class="mb-3">
+        
+        <p>{{viewedProduct.productdescription}}</p>
+    </div>
+   
+    </div>
+    
+ </p-dialog>
